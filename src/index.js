@@ -6,14 +6,16 @@ import Charts from "./components/Charts";
 import Navbar from "./components/Navbar";
 
 import "./styles.scss";
-import useLocalStorage from "./hooks/useLocalStorage";
+import useLocalStorage from "./hooks/useLocalStorage"; //eslint-disable-line
+import useDarkMode from './hooks/useDarkMode';
 
 
 const App = () => {
   const [coinData, setCoinData] = useState([]);
-  // const [darkMode, setDarkMode] = useState(false);
-  const [ storedValue, setValue ] = useLocalStorage("user", false);
-
+  const [ darkMode, setDarkMode ] = useDarkMode();
+  // const [ storedValue, setValue ] = useLocalStorage("mode", false);
+  // ^^^ All in one hook ^^^///\\\ swap darkMode/storedValue, setDarkMode/setValue
+  
   console.log("working")
 
   useEffect(() => {
@@ -25,8 +27,8 @@ const App = () => {
       .catch(err => console.log(err));
   }, []);
   return (
-    <div className={storedValue ? "dark-mode App" : "App"}>
-      <Navbar darkMode={storedValue} setDarkMode={setValue} />
+    <div className={darkMode ? "dark-mode App" : "App"}>
+      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
       <Charts coinData={coinData} />
     </div>
   );

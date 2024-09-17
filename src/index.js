@@ -6,10 +6,17 @@ import Charts from "./components/Charts";
 import Navbar from "./components/Navbar";
 
 import "./styles.scss";
+import useLocalStorage from "./hooks/useLocalStorage"; //eslint-disable-line
+import useDarkMode from './hooks/useDarkMode';
+
 
 const App = () => {
   const [coinData, setCoinData] = useState([]);
-  const [darkMode, setDarkMode] = useState(false);
+  const [ darkMode, setDarkMode ] = useDarkMode();
+  // const [ storedValue, setValue ] = useLocalStorage("mode", false);
+  // ^^^ All in one hook ^^^///\\\ swap darkMode/storedValue, setDarkMode/setValue
+  
+  console.log("working")
 
   useEffect(() => {
     axios
